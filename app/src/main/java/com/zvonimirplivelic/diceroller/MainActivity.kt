@@ -2,8 +2,7 @@ package com.zvonimirplivelic.diceroller
 
 import android.os.Bundle
 import android.widget.Button
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 
 class MainActivity : AppCompatActivity() {
@@ -13,22 +12,42 @@ class MainActivity : AppCompatActivity() {
 
         val rollButton: Button = findViewById(R.id.btnRoll)
         rollButton.setOnClickListener {
-            val toast = Toast.makeText(this, "Dice Rolled!", Toast.LENGTH_SHORT)
-            toast.show()
-        }
-
-        rollButton.setOnClickListener {
             rollDice()
         }
+
+        rollDice()
     }
 
     private fun rollDice() {
         val dice = Dice(6)
+        val diceRollOne = dice.roll()
+        val diceRollTwo = dice.roll()
 
-        val diceOne: TextView = findViewById(R.id.tvDiceOne)
-        val diceTwo: TextView = findViewById(R.id.tvDiceTwo)
+        val diceImageOne: ImageView = findViewById(R.id.ivDiceOne)
+        val diceImageTwo: ImageView = findViewById(R.id.ivDiceTwo)
 
-        diceOne.text = dice.roll().toString()
-        diceTwo.text = dice.roll().toString()
+
+        val drawableResourceOne = when (diceRollOne) {
+            1 -> R.drawable.dice_1
+            2 -> R.drawable.dice_2
+            3 -> R.drawable.dice_3
+            4 -> R.drawable.dice_4
+            5 -> R.drawable.dice_5
+            else -> R.drawable.dice_6
+        }
+
+        val drawableResourceTwo = when (diceRollTwo) {
+            1 -> R.drawable.dice_1
+            2 -> R.drawable.dice_2
+            3 -> R.drawable.dice_3
+            4 -> R.drawable.dice_4
+            5 -> R.drawable.dice_5
+            else -> R.drawable.dice_6
+        }
+
+        diceImageOne.setImageResource(drawableResourceOne)
+        diceImageTwo.setImageResource(drawableResourceTwo)
+        diceImageTwo.contentDescription = diceRollOne.toString()
+        diceImageTwo.contentDescription = diceRollOne.toString()
     }
 }
